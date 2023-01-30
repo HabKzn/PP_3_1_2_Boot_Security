@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.security;
 
+import lombok.Data;
 import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +9,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.Collection;
 
 @Getter
+@Data
 public class CustomUserDetails implements UserDetails {
 
     private final User user;
@@ -19,7 +21,7 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return user.getRoles();
     }
 
     @Override
@@ -50,5 +52,9 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public User getUser() {
+        return user;
     }
 }

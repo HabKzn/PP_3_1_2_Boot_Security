@@ -6,11 +6,16 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.service.CustomUserDetailsService;
 
+import java.util.Collection;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @Component
 public class AuthProviderImpl implements AuthenticationProvider {
@@ -30,11 +35,15 @@ public class AuthProviderImpl implements AuthenticationProvider {
         if (!password.equals(userDetails.getPassword())) {
             throw new BadCredentialsException("Incorrect password");
         }
-        return new UsernamePasswordAuthenticationToken(userDetails, password, Collections.emptyList());
+        return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
     }
 
     @Override
     public boolean supports(Class<?> authentication) {
         return true;
+    }
+
+    private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles) {
+        return roles.stream().map(r -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toSet());
     }
 }
