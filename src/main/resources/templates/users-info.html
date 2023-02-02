@@ -9,61 +9,78 @@
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
 </head>
 
-<body>
+<body style="background-color:WhiteSmoke;">
 
 
+<!--Плашка сверху с кнопкой LOGOUT-->
 <nav class="navbar navbar-dark bg-dark">
-    <a href="/logout">Logout</a>
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">
+            <b>
+                <td th:text="${user.email}"></td>
+            </b> with roles:
+            <td th:text="${user.rolesToString()}"></td>
+        </a>
+    </div>
+    <div class="nav navbar-nav navbar-right">
+        <a href="/logout" class="text-light bg-dark">Logout</a>
+    </div>
 </nav>
 
 
-<div th:action="@{/admin/users-info}" th:switch="${users}">
-    <div class="container"><h1>Admin panel</h1>
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-                <a class="nav-link active" th:href="@{/admin/users-info}">Users table</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" th:href="@{/admin/signup}">New User</a>
-            </li>
-        </ul>
-        <div class="card">
-            <div class="card-header"><h4> All users</h4></div>
-            <div class="card-body">
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Age</th>
-                        <th>Email</th>
-                        <th>Role</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="user : ${users}">
-                        <td th:text="${user.id}"></td>
-                        <td th:text="${user.username}"></td>
-                        <td th:text="${user.lastName}"></td>
-                        <td th:text="${user.age}"></td>
-                        <td th:text="${user.email}"></td>
-                        <td th:text="${user.roles}">Roles</td>
-                <td>
-                    <form th:method="patch" th:action="@{/admin/update/{id}(id=${user.id})}">
-                        <button class="btn btn-info" type="submit">Edit</button>
-                    </form>
-                </td>
-                        <td>
-                            <form th:method="delete" th:action="@{/admin/delete/{id}(id=${user.id})}">
-                                <button type="submit" class="btn btn-danger">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+
+
+
+
+    <div th:action="@{/admin/users-info}" th:switch="${users}">
+        <div class="container"><h1>Admin panel</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/admin/users-info}">Users table</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/admin/signup}">New User</a>
+                </li>
+            </ul>
+
+            <div class="card">
+                <div class="card-header"><h4> All users</h4></div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.lastName}"></td>
+                            <td th:text="${user.age}"></td>
+                            <td th:text="${user.email}"></td>
+                            <td th:text="${user.rolesToString()}">Roles</td>
+                            <td>
+                                <form th:method="patch" th:action="@{/admin/update/{id}(id=${user.id})}">
+                                    <button class="btn btn-info" type="submit">Edit</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:method="delete" th:action="@{/admin/delete/{id}(id=${user.id})}">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

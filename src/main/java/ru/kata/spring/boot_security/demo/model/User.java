@@ -39,5 +39,11 @@ public class User {
         this.roles.add(role);
     }
 
+    public String rolesToString() {
+        StringBuilder sb = new StringBuilder();
+       roles.stream().forEach(r -> sb.append(r.toString()));
+       return sb.toString().trim();
+    }
+
 
 }

@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -30,8 +31,10 @@ public class AdminController {
     }
 
     @GetMapping("/admin/users-info")
-    public String showUserList(Model model) {
+    public String showUserList(Model model, Authentication authentication) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("user", userService.findByUsername(authentication.getName()).get());
+
         return "users-info";
     }
 
