@@ -37,8 +37,6 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(User user) {
-        Role role = roleService.getRoleByName("USER").orElseThrow(NoSuchElementException::new);
-        user.addRole(role);
         userRepository.save(user);
     }
 
@@ -48,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<User> findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<User> findByUsername(String email) {
+        return userRepository.findUserByEmail(email);
     }
 }
