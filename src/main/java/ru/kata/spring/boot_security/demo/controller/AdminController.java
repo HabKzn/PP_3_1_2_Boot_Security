@@ -37,6 +37,7 @@ public class AdminController {
     @GetMapping("/admin/users-info")
     public String showUserList(Model model, Authentication authentication) {
         model.addAttribute("users", userService.getAllUsers());
+        model.addAttribute("newuser", new User());
         CustomUserDetails customUserDetails = (CustomUserDetails)authentication.getPrincipal();
        User user1 = userService.findByUsername(customUserDetails.getPassword()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         model.addAttribute("user", user1);
