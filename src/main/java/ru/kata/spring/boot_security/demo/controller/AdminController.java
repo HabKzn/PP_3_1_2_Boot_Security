@@ -10,8 +10,6 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.security.CustomUserDetails;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.security.Principal;
-
 
 @Controller
 public class AdminController {
@@ -24,8 +22,8 @@ public class AdminController {
     }
 
     @GetMapping()
-    public String showSignUpForm(User user) {
-        return "redirect:/admin/users-info";
+    public String showSignUpForm() {
+        return "redirect:/login";
     }
 
     @RequestMapping("/admin/adduser")
@@ -41,7 +39,7 @@ public class AdminController {
         CustomUserDetails customUserDetails = (CustomUserDetails)authentication.getPrincipal();
        User user1 = userService.findByUsername(customUserDetails.getPassword()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
         model.addAttribute("user", user1);
-        return "users-info";
+        return "admin";
     }
 
     @PatchMapping("/admin/update/{id}")
