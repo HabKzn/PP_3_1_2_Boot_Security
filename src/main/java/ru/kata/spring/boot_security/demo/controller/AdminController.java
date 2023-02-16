@@ -23,9 +23,9 @@ public class AdminController {
         this.userService = userService;
     }
 
-    @GetMapping("/admin/signup")
+    @GetMapping()
     public String showSignUpForm(User user) {
-        return "users-info";
+        return "redirect:/admin/users-info";
     }
 
     @RequestMapping("/admin/adduser")
