@@ -31,13 +31,16 @@
 <!--Начало центральной панели-->
 <div class="row">
 <!--    ПАНЕЛЬ СЛЕВА ГДЕ USER И ADMIN-->
-    <div class="col-2 pt-3">
+    <div class="col-2 pt-3 pr-0">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" style="width: 100vh" id="v-pills-home-tab" data-toggle="pill"
+
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
                href="#v-pills-home" role="tab"
                aria-controls="v-pills-home" aria-selected="true">Admin</a>
+
             <a class="nav-link " id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
                aria-controls="v-pills-profile" aria-selected="false">User</a>
+
         </div>
     </div>
 <!--КОНЕЦ ПАНЕЛИ СЛЕВА-->
@@ -85,20 +88,14 @@
                                                 <td th:text="${user.age}"></td>
                                                 <td th:text="${user.email}"></td>
                                                 <td th:text="${user.rolesToString()}">Roles</td>
-<!--
-
-  Кнопка Edit-->
+                                                <!--Кнопка Edit-->
                                                 <td>
-                                                    <form th:method="patch"
-                                                          th:action="@{/admin/update/{id}(id=${user.id})}">
-                                                        <button class="btn btn-info" type="submit">Edit</button>
-                                                    </form>
+                                                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Edit</button>
+
                                                 </td>
-<!--                                                Конец кнопки Edit-->
-<!--
+                                                <!-- Конец кнопки Edit-->
 
-
-                                                Кнопка Delete-->
+                                                <!--Кнопка Delete-->
                                                 <td>
                                                     <form th:method="delete"
                                                           th:action="@{/admin/delete/{id}(id=${user.id})}">
@@ -177,7 +174,7 @@
                                                     </select>
                                                 </div>
                                                 <br>
-                                                <input type="submit" value="Add new user">
+                                                <button type="submit" class="btn btn-success">Add new user</button>
                                             </form>
                                         </div>
                                     </div>
@@ -224,7 +221,70 @@
 <!--конец всей центральной панели-->
 
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="name" class="mb-0"><b>First Name</b></label>
+                        <input type="text" class="form-control"
+                               id="name" placeholder="Name">
+                    </div>
 
+                    <div class="form-group">
+                        <label for="lastName"><b>Last Name</b></label>
+                        <input
+                                class="form-control"
+                                id="lastName"
+                                placeholder="LastName">
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="age"><b>Age</b></label>
+                        <input type="number" class="form-control"
+                               id="age"
+                               placeholder="Age">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email"><b>Email</b></label>
+                        <input type="text" class="form-control"
+                               id="email"
+                               placeholder="Email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password"><b>Password</b></label>
+                        <input type="password" class="form-control"
+                               id="password"
+                               placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                        <label for="roles"><b>Role</b></label>
+                        <select multiple class="form-control"
+                                size="2"
+                                id="roles">
+                            <option value=1>ADMIN</option>
+                            <option value=2>USER</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
