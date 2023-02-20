@@ -10,11 +10,14 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.security.CustomUserDetails;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
+
 
 @Controller
 public class AdminController {
 
-  private final UserService userService;
+    private final UserService userService;
 
     @Autowired
     public AdminController(UserService userService) {
@@ -27,7 +30,7 @@ public class AdminController {
     }
 
     @RequestMapping("/admin/adduser")
-    public String addUser(User user, Model model) {
+    public String addUser(User user) {
         userService.save(user);
         return "redirect:/admin/users-info";
     }
@@ -46,7 +49,8 @@ public class AdminController {
     }
 
     @PatchMapping("/admin/update/{id}")
-    public String showUpdateForm(@PathVariable("id") int id, Model model) {
+    public String showUpdateForm(@PathVariable Optional<Integer> ids, Model model) {
+        int id = ids.orElse(1);
         User user = userService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         model.addAttribute("user", user);
@@ -65,5 +69,11 @@ public class AdminController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userService.delete(user.getId());
         return "redirect:/admin/users-info";
+    }
+
+    @RequestMapping("/admin/getone")
+    @ResponseBody
+    public User getOne(Integer id) {
+        return userService.findById(id).get();
     }
 }
