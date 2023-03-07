@@ -11,7 +11,6 @@ import ru.kata.spring.boot_security.demo.security.CustomUserDetails;
 import ru.kata.spring.boot_security.demo.service.RoleService;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-
 @Controller
 public class AdminController {
 
@@ -45,23 +44,20 @@ public class AdminController {
             model.addAttribute("user", user1);
         }
         model.addAttribute("newuser", new User());
-
         return "admin";
     }
 
     @PostMapping("/admin/update/{id}")
     public String update(@ModelAttribute User user) {
-
         userService.save(user);
         return "redirect:/admin/users-info";
     }
 
     @PostMapping("/admin/delete/{id}")
-    public String deleteUser(@PathVariable("id") int id, Model model) {
+    public String deleteUser(@PathVariable("id") int id) {
         User user = userService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userService.delete(user.getId());
         return "redirect:/admin/users-info";
     }
-
 }

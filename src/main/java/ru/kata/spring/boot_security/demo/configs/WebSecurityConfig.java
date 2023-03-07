@@ -15,20 +15,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthProviderImpl authProvider;
     private final SuccessUserHandler successUserHandler;
-    private final UserDetailsService userDetailsService;
 
     @Autowired
-    public WebSecurityConfig(AuthProviderImpl authProvider, SuccessUserHandler successUserHandler, UserDetailsService userDetailsService) {
+    public WebSecurityConfig(AuthProviderImpl authProvider, SuccessUserHandler successUserHandler) {
         this.authProvider = authProvider;
         this.successUserHandler = successUserHandler;
-        this.userDetailsService = userDetailsService;
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").authenticated()
+                .antMatchers("/**").permitAll()
                 .and()
                 .formLogin().successHandler(successUserHandler)
                 .permitAll()
