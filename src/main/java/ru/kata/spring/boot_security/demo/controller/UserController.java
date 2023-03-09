@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
+    @RequestMapping(value = "/userView", method = RequestMethod.GET)
     public String getIndex(Model model, Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails)authentication.getPrincipal();
         User user1 = userService.findByUsername(customUserDetails.getPassword()).orElseThrow(() -> new UsernameNotFoundException("User not found"));

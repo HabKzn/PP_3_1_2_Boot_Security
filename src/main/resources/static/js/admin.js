@@ -9,7 +9,7 @@ var allUsers;
 
 //получение principal
 async function getPrincipal() {
-    let jsonPrincipal = await fetch('/rest/user');
+    let jsonPrincipal = await fetch('/getinfo');
 
     if (jsonPrincipal.ok) {
         principal = await jsonPrincipal.json();
@@ -22,9 +22,9 @@ async function getPrincipal() {
 
 //заполнение navbar сверху
 function fillNavbar() {
-    $('#principal-username').append(principal.username);
+    $('#nameNavbar').append(principal.username);
     for (let i = 0; i <= principal.roles.length - 1; i++) {
-        $('#principal-roles').append(principal.roles[i].name)
+        $('#rolesNavbar').append(principal.roles[i].name)
         if (i != principal.roles.length - 1) {
             $('#principal-roles').append(", ");
         }
@@ -33,7 +33,7 @@ function fillNavbar() {
 
 //получение всех Users и всех ролей
 async function getData() {
-    let users = await fetch('/rest/users');
+    let users = await fetch('/users');
 
     if (users.ok) {
         allUsers = await users.json();
@@ -41,7 +41,7 @@ async function getData() {
         alert("Ошибка HTTP: " + users.status);
     }
 
-    let roles = await fetch('/rest/roles');
+    let roles = await fetch('/roles');
 
     if (roles.ok) {
         allRoles = await roles.json();
@@ -58,7 +58,7 @@ function fillTable() {
     $.each(allUsers, function (i, user) {
         $('<tr>').append(
             $('<td>').text(user.id),
-            $('<td>').text(user.usernamename),
+            $('<td>').text(user.username),
             $('<td>').text(user.lastName),
             $('<td>').text(user.age),
             $('<td>').text(user.email),
@@ -135,16 +135,16 @@ $(document).on('click', '#submit-edit', async function () {
 
     const user = {
         id: $('#idToEdit').val(),
-        name: $('#nameToEdit').val(),
-        surname: $('#surnameToEdit').val(),
+        username: $('#nameToEdit').val(),
+        lastName: $('#surnameToEdit').val(),
         age: $('#ageToEdit').val(),
-        username: $('#usernameToEdit').val(),
+        email: $('#usernameToEdit').val(),
         password: $('#passwordToEdit').val(),
         roles: roles
     };
 
     try {
-        const response = await fetch('/rest/update', {
+        const response = await fetch('/update', {
             method: 'PATCH',
             body: JSON.stringify(user),
             headers: {
@@ -189,7 +189,7 @@ $(document).on('click', '#submit-delete', async function () {
     console.log("Мы отправляем запрос на удаление");
 
     try {
-        const response = await fetch('/rest/delete/'+ $('#idToDelete').val(), {
+        const response = await fetch('/delete/'+ $('#idToDelete').val(), {
             method: 'DELETE',
         });
 
@@ -242,7 +242,7 @@ $(document).on('click', '#submit-add', async function () {
     };
 
     try {
-        const response = await fetch('/rest/add', {
+        const response = await fetch('/create', {
             method: 'POST',
             body: JSON.stringify(user),
             headers: {
@@ -259,18 +259,4 @@ $(document).on('click', '#submit-add', async function () {
     } catch (error) {
         console.error('Ошибка:', error);
     }
-})
-
-//таб панель с информацией о залогиненом пользователе
-$(document).on('click', '#v-pills-profile-tab', function () {
-    $("#principal-tr").remove();
-    $('<tr>').attr({"id": "principal-tr"})
-        .append(
-            $('<td>').text(principal.id),
-            $('<td>').text(principal.username),
-            $('<td>').text(principal.lastName),
-            $('<td>').text(principal.age),
-            $('<td>').text(principal.email),
-            $('<td>').text((principal.roles).map(role => role.name).join(', ')),
-        ).appendTo('.principal-table-body');
 })

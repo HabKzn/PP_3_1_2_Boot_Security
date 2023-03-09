@@ -20,7 +20,7 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/user/getinfo")
+    @GetMapping("/getinfo")
     public ResponseEntity<User> getThisUser(Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         User user = userService.findByUsername(customUserDetails.getPassword()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
