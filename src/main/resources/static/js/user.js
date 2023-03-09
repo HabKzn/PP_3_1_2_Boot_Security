@@ -1,23 +1,19 @@
 
 async function getResponse() {
-    let res = await fetch('/getinfo')
-    let content = await res.json()
-
-
-    let list = document.querySelector('.user-info-table-body')
+    let response = await fetch('/getinfo')
+    let json = await response.json()
     let roles = "";
-    for (let role in content.roles) {
-        roles += `${content.roles[role].name} `
+    for (let role in json.roles) {
+        roles += `${json.roles[role].name} `
     }
-
-    list.innerHTML += `
-       <td>${content.id}</td>
-        <td>${content.username}</td>
-        <td>${content.lastName}</td>
-        <td>${content.age}</td>
-        <td>${content.email}</td>
+    let table = document.querySelector('.user-info-table-body')
+    table.innerHTML += `
+       <td>${json.id}</td>
+        <td>${json.username}</td>
+        <td>${json.lastName}</td>
+        <td>${json.age}</td>
+        <td>${json.email}</td>
         <td>${roles}</td>
 `
 }
-
 getResponse();

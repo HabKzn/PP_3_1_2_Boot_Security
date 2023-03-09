@@ -9,8 +9,8 @@
 
 </head>
     <body>
-    <!--Плашка сверху с кнопкой LOGOUT-->
 
+    <!--Панель сверху с кнопкой LOGOUT-->
     <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <div class="container-fluid">
         <div class="navbar-brand">
@@ -27,7 +27,7 @@
     </div>
 </nav>
 
-<!--Navbar слева-->
+    <!--    ПАНЕЛЬ СЛЕВА ГДЕ USER И ADMIN-->
 <div class="d-flex align-items-start">
     <div class="col-1 nav flex-column nav-pills pt-2 me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
         <button class="nav-link active" id="v-pills-admin-tab" data-bs-toggle="pill" data-bs-target="#v-pills-admin"
@@ -48,7 +48,9 @@
                     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 ">
                         <h1 class="h2">Admin panel</h1>
                     </div>
-                    <!--Tabs с Users table и New User-->
+                    <!--КОНЕЦ ПАНЕЛИ СЛЕВА-->
+
+                    <!-- ПАНЕЛЬ С ИНФОРМАЦИЕЙ О ЮЗЕРАХ-->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active" id="users-table-tab" data-bs-toggle="tab"
@@ -65,7 +67,7 @@
                     </ul>
 
                     <div class="tab-content" id="myTabContent">
-                        <!--Users table-->
+                        <!-- ПАНЕЛЬ С ИНФОРМАЦИЕЙ О ЮЗЕРАХ-->
                         <div class="border bg-white tab-pane fade show active" id="home" role="tabpanel"
                              aria-labelledby="users-table-tab">
                             <h1 class="h4 p-2 bg-light border-bottom">All users</h1>
@@ -84,12 +86,11 @@
                                     </tr>
                                     </thead>
                                     <tbody class="user-table-body">
-                                    <!--JS заполнит таблицу-->
                                     </tbody>
                                 </table>
                             </div>
                         </div>
-                        <!-- модальное окно EDIT-->
+                        <!--МОДАЛЬНОЕ ОКНО EDIT-->
                         <div class="modal fade" id="editModal" data-bs-backdrop="static"
                              data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
@@ -145,7 +146,7 @@
                             </div>
                         </div>
 
-                        <!--модальное окно DELETE-->
+                        <!--МОДАЛЬНОЕ ОКНО DELETE-->
                         <div class="modal fade" id="deleteModal" data-bs-backdrop="static"
                              data-bs-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel"
                              aria-hidden="true">
@@ -190,7 +191,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" id="button-close-delete-modal"
-                                                class="btn btn-secondary" data-bs-dismiss="modal">
+                                                class="btn btn btn-info edit-btn" data-bs-dismiss="modal">
                                             Close
                                         </button>
                                         <button type="button" class="btn btn-danger" id="submit-delete">Delete
@@ -199,8 +200,7 @@
                                 </div>
                             </div>
                         </div>
-
-                        <!--Add new user-->
+                        <!--                                Добавить пользователя-->
                         <div class="border bg-white tab-pane fade" id="profile" role="tabpanel"
                              aria-labelledby="new-user-tab">
                             <h1 class="h4 p-2  bg-light border-bottom">Add new user</h1>
@@ -223,9 +223,7 @@
                                 <label class="form-label"><b>Roles</b></label>
                                 <select class="w-25 mx-auto form-select" size="2" required multiple
                                         aria-label="multiple select" id="newUserRoles">
-
                                 </select>
-
                                 <button id="submit-add" type="button" class="btn btn-success btn-lg w-10 mt-2 ">Add
                                     new user
                                 </button>
@@ -235,18 +233,16 @@
 
                 </div>
             </div>
+
             <!--Info for User-->
             <div class="tab-pane fade pb-2 mb-3" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
                 <div class="md-9 ml-sm-auto lg-10 pt-3 px-4 bg-light hmax">
                     <h1 class="h2">User information-page</h1>
                     <br>
-
                     <div class="bg-white border">
                         <p class="h4 p-2 bg-light border-bottom">About user</p>
                         <div class="row p-4 table-responsive">
                             <table class="col border-top table table-striped table-hover">
-
-
                                 <thead>
                                 <tr>
                                     <th>ID</th>
@@ -257,19 +253,15 @@
                                     <th>Role</th>
                                 </tr>
                                 </thead>
-
                                 <tr class="user-info-table-body"></tr>
-                                                               </tbody>
-
+                                </tbody>
                             </table>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
-
 </div>
 
 

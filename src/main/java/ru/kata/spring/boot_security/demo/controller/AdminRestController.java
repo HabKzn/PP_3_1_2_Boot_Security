@@ -26,6 +26,11 @@ public class AdminRestController {
         this.userService = userService;
         this.roleService = roleService;
     }
+    @PostMapping("/create")
+    public User createUser(@RequestBody User user) {
+        userService.save(user);
+        return user;
+    }
 
     @GetMapping("/users")
     public ResponseEntity<List<User>> getAllUsers() {
@@ -49,13 +54,6 @@ public class AdminRestController {
         return new ResponseEntity<>(userService.findById(id).orElseThrow(
                 () -> new UsernameNotFoundException("Пользователь с таким id не найден")), HttpStatus.OK);
     }
-
-    @PostMapping("/create")
-    public User createUser(@RequestBody User user) {
-        userService.save(user);
-        return user;
-    }
-
 
     @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable("id") int id) {

@@ -11,6 +11,8 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.security.CustomUserDetails;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import javax.persistence.EntityNotFoundException;
+
 @RestController
 public class UserRestController {
     UserService userService;
@@ -23,7 +25,7 @@ public class UserRestController {
     @GetMapping("/getinfo")
     public ResponseEntity<User> getThisUser(Authentication authentication) {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
-        User user = userService.findByUsername(customUserDetails.getPassword()).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        User user = userService.findByUsername(customUserDetails.getPassword()).orElseThrow(EntityNotFoundException::new);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 }
